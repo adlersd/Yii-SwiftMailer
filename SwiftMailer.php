@@ -167,7 +167,7 @@ class SwiftMailer extends CComponent
 		$result = $mailer->send($message);
 		if ($this->logMailerActivity === true) {
 			if (!$result) {
-				$logMessage = 'Failed to send "' . $this->Subject . '" email to [' . implode(', ', $this->addressesFlat()) . ']'
+				$logMessage = 'Failed to send "' . $this->_subject . '" email to [' . implode(', ', $this->addressesFlat()) . ']'
 					. "\nMessage:\n"
 					. ($this->altBody ? $this->altBody : $this->body);
 				Yii::log($logMessage, 'error', 'appMailer');
@@ -179,7 +179,7 @@ class SwiftMailer extends CComponent
 				goto COMPLETE;
 			}
 
-			$logMessage = 'Sent email "' . $this->Subject . '" to [' . implode(', ', $this->addressesFlat()) . ']'
+			$logMessage = 'Sent email "' . $this->_subject . '" to [' . implode(', ', $this->addressesFlat()) . ']'
 				. "\nMessage:\n"
 				. ($this->altBody ? $this->altBody : $this->body);
 			Yii::log($logMessage, 'info','appMailer');
