@@ -3,6 +3,7 @@
  * Swift Mailer wrapper class.
  *
  * @author Sergii 'b3atb0x' hello@webkadabra.com
+ * @author Andrey 'asfdfdfd' Panchenko asfdfdfd@gmail.com
  */
 class SwiftMailer extends CComponent
 {
