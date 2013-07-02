@@ -167,33 +167,40 @@ class SwiftMailer extends CComponent
 		$result = $mailer->send($message);
 		if ($this->logMailerActivity === true) {
 			if (!$result) {
-				$logMessage = 'Failed to send "' . $this->_subject . '" email to [' . implode(', ', $this->addressesFlat()) . ']'
-					. "\nMessage:\n"
-					. ($this->altBody ? $this->altBody : $this->body);
-				Yii::log($logMessage, 'error', 'appMailer');
-				if ($this->logMailerDebug)
-				{
-					$output = $logger->dump();
-					Yii::log($output, 'error', 'appMailer');
-				}
-				goto COMPLETE;
-			}
-
-			$logMessage = 'Sent email "' . $this->_subject . '" to [' . implode(', ', $this->addressesFlat()) . ']'
-				. "\nMessage:\n"
-				. ($this->altBody ? $this->altBody : $this->body);
-			Yii::log($logMessage, 'info','appMailer');
-			if ($this->logMailerDebug)
-			{
-				$output = $logger->dump();
-				Yii::log($output, 'info', 'appMailer');
-			}
-
+                $this->logSentFailed($logger);
+			} else {
+                $this->logSentSuccess($logger);
+            }
 		}
 
-	COMPLETE:
 		$this->clearAddresses();
 	}
+
+    public function logSentFailed($logger)
+    {
+        $logMessage = 'Failed to send "' . $this->_subject . '" email to [' . implode(', ', $this->addressesFlat()) . ']'
+            . "\nMessage:\n"
+            . ($this->altBody ? $this->altBody : $this->body);
+        Yii::log($logMessage, 'error', 'appMailer');
+        if ($this->logMailerDebug)
+        {
+            $output = $logger->dump();
+            Yii::log($output, 'error', 'appMailer');
+        }
+    }
+
+    public function logSentSuccess($logger)
+    {
+        $logMessage = 'Sent email "' . $this->_subject . '" to [' . implode(', ', $this->addressesFlat()) . ']'
+            . "\nMessage:\n"
+            . ($this->altBody ? $this->altBody : $this->body);
+        Yii::log($logMessage, 'info','appMailer');
+        if ($this->logMailerDebug)
+        {
+            $output = $logger->dump();
+            Yii::log($output, 'info', 'appMailer');
+        }
+    }
 
 	public function clearAddresses()
 	{
