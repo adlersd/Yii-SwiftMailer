@@ -47,7 +47,7 @@ class SwiftMailer extends CComponent
 	/**
 	 * sendmailCommand
 	 */
-	public $sendmailCommand = '/usr/bin/sendmail -t';
+	public $sendmailCommand = '/usr/sbin/sendmail -bs';
 	public $logMailerActivity = false;
 
 	/**
